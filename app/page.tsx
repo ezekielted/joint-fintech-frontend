@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import {
   Wallet,
@@ -5,12 +8,12 @@ import {
   Users,
   ShieldCheck,
   ArrowRight,
-  CheckCircle2,
   Plus,
-  TrendingUp,
   Github,
   Twitter,
   Linkedin,
+  Menu,
+  X,
 } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 
@@ -60,6 +63,8 @@ function Container({ children, className = "" }: { children: React.ReactNode; cl
 }
 
 export default function HomePage() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-background">
       {/* Background Glows */}
@@ -79,6 +84,7 @@ export default function HomePage() {
               <span className="text-lg font-bold tracking-tight text-slate-900 dark:text-slate-50">CLENJA</span>
             </Link>
 
+            {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-8">
               <a
                 href="#features"
@@ -108,8 +114,51 @@ export default function HomePage() {
               >
                 Get started
               </Link>
+
+              {/* Hamburger Menu Toggle (Mobile Only) */}
+              <button
+                className="md:hidden p-2 text-slate-600 dark:text-slate-400"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                aria-label="Toggle menu"
+              >
+                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              </button>
             </div>
           </div>
+
+          {/* Mobile Navigation Menu */}
+          {isMenuOpen && (
+            <nav className="md:hidden flex flex-col gap-4 pb-6 pt-2 border-t border-slate-200 dark:border-slate-800 animate-in slide-in-from-top-4 duration-200">
+              <a
+                href="#features"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-emerald-600 transition-colors"
+              >
+                Features
+              </a>
+              <a
+                href="#how"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-emerald-600 transition-colors"
+              >
+                How it works
+              </a>
+              <Link
+                href="/login"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-emerald-600 transition-colors"
+              >
+                Sign in
+              </Link>
+              <Link
+                href="/signup"
+                onClick={() => setIsMenuOpen(false)}
+                className="inline-flex items-center justify-center rounded-full bg-slate-900 dark:bg-slate-50 px-5 py-3 text-sm font-bold text-white dark:text-slate-950 hover:bg-slate-800 dark:hover:bg-slate-200 transition-all shadow-md"
+              >
+                Get started
+              </Link>
+            </nav>
+          )}
         </Container>
       </header>
 
