@@ -12,9 +12,9 @@ export function ThemeToggle() {
     return <div className="h-9 w-9" />;
   }
   const cycleTheme = () => {
-    if (theme === "dark") setTheme("light");
-    else if (theme === "light") setTheme("system");
-    else setTheme("dark");
+    if (theme === "system") setTheme("dark");
+    else if (theme === "dark") setTheme("light");
+    else setTheme("system");
   };
   return (
     <button
